@@ -11,13 +11,12 @@ class Metronome extends Component {
             playing: false,
             bpm: 120,
             count: 0,
-            beatsPerMeasure: 4
+            beatsPerMeasure: 4,
+            divisionHandler: 60
         }
 
         this.click1 = new Audio(click1)
         this.click2 = new Audio(click2)
-
-
     }
 
     handleBpmChange = (event) => {
@@ -55,7 +54,6 @@ class Metronome extends Component {
 
     playClick = () => {
         const {count, beatsPerMeasure} = this.state; 
-
         if (count % beatsPerMeasure === 0) {
             this.click1.play();
         } else {
@@ -65,7 +63,12 @@ class Metronome extends Component {
         this.setState({
             count: (this.state.count + 1) % this.state.beatsPerMeasure
         })
+    }
 
+    handleChangeDivision = (newDivision) => () => {
+        this.setState({
+            divisionHandler: newDivision
+        })
     }
 
 
@@ -75,6 +78,7 @@ class Metronome extends Component {
 
     return (
         <div className="metronome">
+        <pre>{JSON.stringify(this.state, null, 2)}</pre>
         <div className="bpm-slider">
         <div>{bpm} BPM</div>
           <input
@@ -84,9 +88,13 @@ class Metronome extends Component {
             value={bpm} 
             onChange={this.handleBpmChange}/>
         </div>
-        <button onClick={this.togglePlaying}>
+        <button onClick={this.togglePlaying} id="startStopButton">
           {playing ? 'Stop' : 'Start'}
         </button>
+
+        <button onClick={this.handleChangeDivision(60)}>1/4</button>
+        <button onClick={this.handleChangeDivision(30)}>1/8</button>
+        <button onClick={this.handleChangeDivision(15)}>1/16</button>
       </div>
     );
   }

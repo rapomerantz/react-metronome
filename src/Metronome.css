@@ -9,6 +9,7 @@
     width: 100%;
     margin: 10px;
   }
+
   
   .metronome button {
     background: plum;
@@ -18,4 +19,8 @@
     width: 100px;
     color: #fff;
     font-size: 18px;
+  }
+
+  #startStopButton {
+    width: 300px;
   }
